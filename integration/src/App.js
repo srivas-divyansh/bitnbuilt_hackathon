@@ -11,10 +11,11 @@ function App() {
     signer: null,
     contract: null
   });
+  const [openModel, setOpenModel] = useState(false);
   const [account, setAccount] = useState("None");
   useEffect(() => {
     const connectWallet = async () => {
-      const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+      const contractAddress = "0x610178dA211FEF7D417bC0e6FeD39F05609AD788";
       const contractABI = Upload.abi;
       try {
         const { ethereum } = window;
@@ -45,25 +46,35 @@ function App() {
     }
     connectWallet();
   }, []);
-  console.log(state);
+  // console.log(state);
   return (
-    <div className="App">
-      <h1>G-drive 3.0</h1>
-      <br />
-      <p>Account: {account}</p>
-      <div>
-        <FileUpload
-          account={account}
-          provider={state.provider}
+    <>
+      {!openModel && (
+        <button className="share"
+          onClick={() => setOpenModel(true)}>Share</button>
+      )}{" "}
+      {openModel && (
+        <Model setOpenModel={setOpenModel}
           contract={state.contract} />
-          <br/>
+      )}
+      <div className="App">
+        <h1>G-drive 3.0</h1>
+        <br />
+        <p>Account: {account}</p>
+        <div>
+          <FileUpload
+            account={account}
+            provider={state.provider}
+            contract={state.contract} />
           <br />
-        <Display 
-        contract = {state.contract}
-        account={account}
-        />
+          <br />
+          <Display
+            contract={state.contract}
+            account={account}
+          />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 export default App;
