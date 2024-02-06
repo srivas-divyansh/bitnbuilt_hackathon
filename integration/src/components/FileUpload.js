@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 const FormData = require('form-data');
 
-
 function FileUpload({contract, account, provider}) {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("No Image selected")
